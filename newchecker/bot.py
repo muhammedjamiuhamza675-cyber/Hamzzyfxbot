@@ -193,7 +193,7 @@ except ImportError:
     API_AVAILABLE = False
 
 # ================= CONFIG =================
-BOT_TOKEN = '8460369255:AAGpnfJve-fjZSe6q9ZkdbO_CB2X0OkHK5M'
+BOT_TOKEN = '8558621281:AAEqZ5J6CgnwmUKAg-2N8d68C3V_WzL6isY'
 ADMIN_ID = 7443685686
 BOT_USERNAME = "hamzzyhacket"
 BOT_START_TIME = time.time()
