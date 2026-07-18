@@ -184,12 +184,37 @@ def db_fetch_one(query, params=(), max_retries=5):
     return None
 
 # ================= IMPORT API =================
+API_AVAILABLE = False
 try:
-    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    from api import process_card_async, extract_clean_response, fetch_products
-    API_AVAILABLE = True
-except ImportError:
-    print("⚠️ api.py not found! Shopify checker will not work.")
+    import importlib.util
+    import os
+    
+    # Get the directory where bot.py is located
+    bot_dir = os.path.dirname(os.path.abspath(__file__))
+    api_path = os.path.join(bot_dir, 'api.py')
+    
+    print(f"🔍 Looking for api.py at: {api_path}")
+    
+    if os.path.exists(api_path):
+        print(f"✅ api.py found at: {api_path}")
+        
+        # Import using spec
+        spec = importlib.util.spec_from_file_location("api", api_path)
+        api = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(api)
+        
+        process_card_async = api.process_card_async
+        extract_clean_response = api.extract_clean_response
+        fetch_products = api.fetch_products
+        
+        API_AVAILABLE = True
+        print("✅ API imported successfully using absolute path!")
+    else:
+        print(f"❌ api.py NOT found at: {api_path}")
+        print(f"📁 Files in directory: {os.listdir(bot_dir)}")
+        
+except Exception as e:
+    print(f"❌ Error importing API: {e}")
     API_AVAILABLE = False
 
 # ================= CONFIG =================
