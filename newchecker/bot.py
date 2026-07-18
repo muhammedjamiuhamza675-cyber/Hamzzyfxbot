@@ -25,6 +25,14 @@ from faker import Faker
 from urllib.parse import urlparse
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from datetime import datetime, timedelta
+import os
+import sys
+
+# Print debug info for Railway
+print(f"📁 Current working directory: {os.getcwd()}")
+print(f"📁 Script directory: {os.path.dirname(os.path.abspath(__file__))}")
+if os.path.exists(os.getcwd()):
+    print(f"📁 Files in current directory: {os.listdir(os.getcwd())}")
 
 if sys.platform == 'win32':
     os.system('chcp 65001 > nul')
